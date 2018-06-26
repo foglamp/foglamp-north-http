@@ -4,7 +4,7 @@
 # See: http://foglamp.readthedocs.io/
 # FOGLAMP_END
 
-""" HTTP North """
+""" HTTP North plugin"""
 
 import aiohttp
 import asyncio
@@ -24,7 +24,6 @@ _LOGGER = logger.setup(__name__)
 http_north = None
 config = ""
 
-# Configuration related to HTTP North
 _CONFIG_CATEGORY_NAME = "HTTP"
 _CONFIG_CATEGORY_DESCRIPTION = "HTTP North Plugin"
 
@@ -80,6 +79,7 @@ def plugin_init(data):
 
 
 async def plugin_send(data, payload, stream_id):
+    # stream_id (log?)
     is_data_sent, new_last_object_id, num_sent = await http_north.send_payloads(payload)
     return is_data_sent, new_last_object_id, num_sent
 

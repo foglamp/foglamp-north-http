@@ -37,8 +37,9 @@ class FakeServer:
 
     async def start(self, secure=False):
         self.handler = self.app.make_handler()
-        if not secure:
-            ssl_ctx = None
+        ssl_ctx = None
+        if secure:
+            ssl_ctx = None  # TODO: set the ssl context with self signed certificates
         self.server = await self.loop.create_server(self.handler, _HOST, _PORT, ssl=ssl_ctx)
 
     async def stop(self):

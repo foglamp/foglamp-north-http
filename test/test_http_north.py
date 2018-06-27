@@ -81,14 +81,14 @@ async def test_send_payload(event_loop):
     fake_server = FakeServer(loop=event_loop)
     await fake_server.start()
 
-    payloads = [{'id': 1, 'asset': 'fogbench/temperature', 'key': '31e5ccbb-3e45-4038-95e9-7920834d0852', 'user_ts': '2018-02-26 12:12:54.171949+00', 'reading': {'ambient': 7, 'object': 28}}, {'id': 46, 'asset': 'fogbench/luxometer', 'key': '9b5beb10-5d87-4cd9-803e-02df7942139d', 'user_ts': '2018-02-27 11:46:57.368753+00', 'reading': {'lux': 92748.668}}]
+    payloads = [{'id': 1, 'asset_code': 'fogbench/temperature', 'read_key': '31e5ccbb-3e45-4038-95e9-7920834d0852', 'user_ts': '2018-02-26 12:12:54.171949+00', 'reading': {'ambient': 7, 'object': 28}}, {'id': 46, 'asset_code': 'fogbench/luxometer', 'read_key': '9b5beb10-5d87-4cd9-803e-02df7942139d', 'user_ts': '2018-02-27 11:46:57.368753+00', 'reading': {'lux': 92748.668}}]
     http_north.http_north = HttpNorthPlugin()
     http_north.http_north.event_loop = event_loop
     http_north.config = http_north._DEFAULT_CONFIG
     http_north.config['url']['value'] = _URL
     http_north.config['verifySSL']['value'] = "false"
-    last_id, num_count = await http_north.http_north._send_payloads(payloads)
-    assert (46, 2) == (last_id, num_count)
+    num_count = await http_north.http_north._send_payloads(payloads)
+    assert 2 == num_count
 
     await fake_server.stop()
 
@@ -105,21 +105,21 @@ async def test_send_payload_server_error():
 
 @pytest.mark.asyncio
 async def test_plugin_send(loop):
+
     async def mock_coro():
-        return 1, 2
+        return 2
 
     payload = [{'asset_code': 'fogbench/temperature', 'reading': {'ambient': 7, 'object': 28}, 'id': 14,
                 'read_key': '31e5ccbb-3e45-4038-95e9-7920834d0852', 'user_ts': '2018-02-26 12:12:54.171949+00'},
                {'asset_code': 'fogbench/wall clock', 'reading': {'tick': 'tock'}, 'id': 20,
                 'read_key': '277a6ac9-4351-4807-8cfd-a709d6c346cd', 'user_ts': '2018-02-26 12:12:54.172166+00'}]
+
     http_north.http_north = HttpNorthPlugin()
     http_north.http_north.event_loop = loop
     http_north.config = http_north._DEFAULT_CONFIG
     with patch.object(http_north.http_north, '_send_payloads', return_value=mock_coro()) as patch_send_payload:
         is_data_sent, new_last_object_id, num_sent = await http_north.plugin_send(data=http_north.config, payload=payload, stream_id=3)
-        assert (True, 1, 2) == (is_data_sent, new_last_object_id, num_sent)
-    args, kwargs = patch_send_payload.call_args
-    assert (payload, ) == args
+        assert (True, 20, 2) == (is_data_sent, new_last_object_id, num_sent)
 
 
 @pytest.mark.skip

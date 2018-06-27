@@ -9,6 +9,7 @@
 import aiohttp
 import asyncio
 import json
+import uuid
 
 from foglamp.common import logger
 from foglamp.plugins.north.common.common import *
@@ -105,7 +106,18 @@ class HttpNorthPlugin(object):
         last_object_id = 0
         num_sent = 0
         try:
-            last_object_id, num_sent = await self._send_payloads(payloads)
+            payload_block = list()
+
+            for p in payloads:
+                last_object_id = p["id"]
+                read = dict()
+                read["asset"] = p['asset_code']
+                read["readings"] = p['reading']
+                read["timestamp"] = p['user_ts']
+                read["key"] = str(uuid.uuid4())  # p['read_key']
+            payload_block.append(read)
+
+            num_sent = await self._send_payloads(payload_block)
             is_data_sent = True
         except Exception as ex:
             _LOGGER.exception("Data could not be sent, %s", str(ex))
@@ -116,7 +128,6 @@ class HttpNorthPlugin(object):
         """ send a list of block payloads"""
 
         num_count = 0
-        last_id = None
         try:
             verify_ssl = False if config["verifySSL"]['value'] == 'false' else True
             url = config['url']['value']
@@ -126,9 +137,8 @@ class HttpNorthPlugin(object):
         except:
             pass
         else: 
-            last_id = payload_block[-1]['id']
             num_count += len(payload_block)
-        return last_id, num_count
+        return num_count
 
     async def _send(self, url, payload, session):
         """ Send the payload, using provided socket session """

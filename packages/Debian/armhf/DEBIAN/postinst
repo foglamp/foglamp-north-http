@@ -31,20 +31,21 @@ set_files_ownership () {
     chown -R root:root /usr/local/foglamp/python/foglamp/plugins/north/http
 }
 
-add_destination_and_stream () {
-
+# TODO: remove this once we have addTask REST endpoint
+run_sql () {
+    # add plugin loader configuration
+    # add_destination_and_stream
+    # add stats key
+    # add process to schedule
+    sqlite3 /usr/local/foglamp/data/foglamp.db < /usr/local/foglamp/data/cmds-http-north.sql
 }
 
-add_schedule () {
-
-}
-
-enable_schedule () {
-
+add_enabled_schedule () {
+    output=$(curl -d '{"type": 3, "name": "HTTP Sender", "process_name": "North HTTP", "repeat": "15", "exclusive": "t", "enabled": "t"}' -X POST http://localhost:8081/foglamp/schedule)
+    echo $output
 }
 
 set_files_ownership
-add_destination_and_stream
-add_schedule
-enable_schedule
+run_sql
+add_enabled_schedule
 echo "HTTP north plugin is installed."

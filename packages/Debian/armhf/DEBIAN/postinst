@@ -28,7 +28,7 @@
 set -e
 
 set_files_ownership () {
-    chown -R root:root /usr/local/foglamp/python/foglamp/plugins/north/http
+    chown -R root:root /usr/local/foglamp/python/foglamp/plugins/north/http_north
 }
 
 # TODO: remove this once we have addTask REST endpoint

@@ -115,7 +115,7 @@ class HttpNorthPlugin(object):
                 read["readings"] = p['reading']
                 read["timestamp"] = p['user_ts']
                 read["key"] = str(uuid.uuid4())  # p['read_key']
-            payload_block.append(read)
+                payload_block.append(read)
 
             num_sent = await self._send_payloads(payload_block)
             is_data_sent = True

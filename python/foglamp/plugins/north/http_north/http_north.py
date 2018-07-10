@@ -35,7 +35,7 @@ _DEFAULT_CONFIG = {
          'default': 'http_north'
     },
     'url': {
-        'description': 'URI to accept data',
+        'description': 'Destination URL',
         'type': 'string',
         'default': 'http://localhost:6683/sensor-reading'
     },

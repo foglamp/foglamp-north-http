@@ -40,12 +40,12 @@ run_sql () {
     sqlite3 /usr/local/foglamp/data/foglamp.db < /usr/local/foglamp/data/cmds-http-north.sql
 }
 
-add_enabled_schedule () {
-    output=$(curl -d '{"type": 3, "name": "HTTP Sender", "process_name": "North HTTP", "repeat": "15", "exclusive": "t", "enabled": "t"}' -X POST http://localhost:8081/foglamp/schedule)
+add_scheduled_task () {
+    output=$(curl -d '{ "name": "HTTP North", "plugin": "http_north", "type": "north", "schedule_type": 3, "schedule_day": 0, "schedule_time": 0, "schedule_repeat": 30, "schedule_enabled": false, "cmd_params": {"stream_id": "3", "debug_level": "1"}}' -X POST http://localhost:8081/foglamp/scheduled/task)
     echo $output
 }
 
 set_files_ownership
 run_sql
-add_enabled_schedule
+add_scheduled_task
 echo "HTTP north plugin is installed."

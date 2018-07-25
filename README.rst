@@ -38,7 +38,7 @@ Finally, run the ``make_deb`` command:
     $ ./make_deb arm
     The package root directory is            : /home/pi/foglamp-north-http
     The FogLAMP north HTTP plugin version is : 1.0.0
-    The Package will be built in             : /home/pi/foglamp-north-http/packages/Debian/build
+    The package will be built in             : /home/pi/foglamp-north-http/packages/Debian/build
     The architecture is set as               : armhf
     The package name is                      : foglamp-north-http-1.0.0-armhf
 

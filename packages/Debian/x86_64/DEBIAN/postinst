@@ -21,7 +21,7 @@
 ## @postinst DEBIAN/postinst
 ## This script is used to execute post installation tasks.
 ##
-## Author: Ashish Jabble
+## Author: Ashish Jabble, Praveen Garg, Amarendra K Sinha
 ##
 ##--------------------------------------------------------------------
 

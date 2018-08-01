@@ -16,11 +16,10 @@ The make_deb script
 .. code-block:: console
 
   $ ./make_deb help
-  make_deb help {x86|arm} [clean|cleanall]
+  make_deb help [clean|cleanall]
   This script is used to create the Debian package of foglamp north http
   Arguments:
-   x86      - Build an x86_64 package
-   arm      - Build an armv7l package
+   help     - Display this help text
    clean    - Remove all the old versions saved in format .XXXX
    cleanall - Remove all the versions, including the last one
   $
@@ -29,22 +28,20 @@ The make_deb script
 Building a Package
 ==================
 
-Select the architecture to use, *x86* or *arm*.
 Finally, run the ``make_deb`` command:
 
 
 .. code-block:: console
 
-    $ ./make_deb arm
+    $ ./make_deb
     The package root directory is            : /home/pi/foglamp-north-http
     The FogLAMP north HTTP plugin version is : 1.0.0
-    The package will be built in             : /home/pi/foglamp-north-http/packages/Debian/build
-    The architecture is set as               : armhf
-    The package name is                      : foglamp-north-http-1.0.0-armhf
+    The package will be built in             : /home/pi/foglamp-north-http/packages/build
+    The package name is                      : foglamp-north-http-1.0.0
 
     Populating the package and updating version file...Done.
     Building the new package...
-    dpkg-deb: building package 'foglamp-north-http' in 'foglamp-north-http-1.0.0-armhf.deb'.
+    dpkg-deb: building package 'foglamp-north-http' in 'foglamp-north-http-1.0.0.deb'.
     Building Complete.
     $
 
@@ -53,10 +50,10 @@ The result will be:
 
 .. code-block:: console
 
-  $ ls -l packages/Debian/build/
+  $ ls -l packages/build/
     total 12
-    drwxr-xr-x 4 pi pi 4096 Jun 14 10:03 foglamp-north-http-1.0.0-armhf
-    -rw-r--r-- 1 pi pi 4522 Jun 14 10:03 foglamp-north-http-1.0.0-armhf.deb
+    drwxr-xr-x 4 pi pi 4096 Jun 14 10:03 foglamp-north-http-1.0.0
+    -rw-r--r-- 1 pi pi 4522 Jun 14 10:03 foglamp-north-http-1.0.0.deb
   $
 
 

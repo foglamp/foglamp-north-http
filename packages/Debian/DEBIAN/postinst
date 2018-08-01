@@ -42,7 +42,7 @@ run_sql () {
 
 add_scheduled_task () {
     output=$(curl -d '{ "name": "HTTP North", "plugin": "http_north", "type": "north", "schedule_type": 3, "schedule_day": 0, "schedule_time": 0, "schedule_repeat": 30, "schedule_enabled": false, "cmd_params": {"stream_id": "3", "debug_level": "1"}}' -X POST http://localhost:8081/foglamp/scheduled/task)
-    echo $output
+    echo ${output}
 }
 
 set_files_ownership

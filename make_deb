@@ -105,10 +105,6 @@ find ${GIT_ROOT}/python | grep -E "(__pycache__|\.pyc|\.pyo$)" | xargs rm -rf
 cp -R ${GIT_ROOT}/python .
 cp -R ${GIT_ROOT}/VERSION.north.http .
 
-mkdir data
-cd data
-cp ${GIT_ROOT}/cmds-http-north.sql .
-
 echo "Done."
 
 # Build the package

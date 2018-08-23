@@ -44,7 +44,7 @@ _DEFAULT_CONFIG = {
     "verifySSL": {
         "description": "Verify SSL certificate",
         "type": "boolean",
-        "default": "False",
+        "default": "false",
         'order': '2'
     },
     'shutdownWaitTime': {

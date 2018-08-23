@@ -32,17 +32,20 @@ _DEFAULT_CONFIG = {
     'plugin': {
          'description': 'HTTP North Plugin',
          'type': 'string',
-         'default': 'http_north'
+         'default': 'http_north',
+         'readonly': 'true'
     },
     'url': {
         'description': 'Destination URL',
         'type': 'string',
-        'default': 'http://localhost:6683/sensor-reading'
+        'default': 'http://localhost:6683/sensor-reading',
+        'order': '1'
     },
     "verifySSL": {
         "description": "Verify SSL certificate",
         "type": "boolean",
-        "default": "False"
+        "default": "False",
+        'order': '2'
     },
     'shutdownWaitTime': {
         'description': 'Time in seconds, the plugin should wait for pending tasks to complete before shutdown',

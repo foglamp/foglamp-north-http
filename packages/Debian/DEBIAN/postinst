@@ -38,5 +38,5 @@ add_scheduled_task () {
 }
 
 set_files_ownership
-add_scheduled_task
+# add_scheduled_task
 echo "HTTP north plugin is installed."

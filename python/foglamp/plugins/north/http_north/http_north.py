@@ -50,17 +50,20 @@ _DEFAULT_CONFIG = {
     'shutdownWaitTime': {
         'description': 'Time in seconds, the plugin should wait for pending tasks to complete before shutdown',
         'type': 'integer',
-        'default': '10'
+        'default': '10',
+        'order': '3'
     },
     "applyFilter": {
         "description": "Should filter be applied before processing data",
         "type": "boolean",
-        "default": "False"
+        "default": "False",
+        'order': '4'
     },
     "filterRule": {
         "description": "JQ formatted filter to apply (only applicable if applyFilter is True)",
         "type": "string",
-        "default": ".[]"
+        "default": ".[]",
+        'order': '5'
     }
 }
 

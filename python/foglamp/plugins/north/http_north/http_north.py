@@ -83,9 +83,11 @@ async def plugin_send(data, payload, stream_id):
     # stream_id (log?)
     try:
         is_data_sent, new_last_object_id, num_sent = await http_north.send_payloads(payload)
-        return is_data_sent, new_last_object_id, num_sent
     except asyncio.CancelledError:
         pass
+    else:
+        return is_data_sent, new_last_object_id, num_sent
+
 
 def plugin_shutdown(data):
     pass

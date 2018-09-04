@@ -31,12 +31,5 @@ set_files_ownership () {
     chown -R root:root /usr/local/foglamp/python/foglamp/plugins/north/http_north
 }
 
-
-add_scheduled_task () {
-    output=$(curl -d '{ "name": "HTTP North", "plugin": "http_north", "type": "north", "schedule_type": 3, "schedule_day": 0, "schedule_time": 0, "schedule_repeat": 30, "schedule_enabled": false}' -X POST http://localhost:8081/foglamp/scheduled/task)
-    echo ${output}
-}
-
 set_files_ownership
-# add_scheduled_task
 echo "HTTP north plugin is installed."

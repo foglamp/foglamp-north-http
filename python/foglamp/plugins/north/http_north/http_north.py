@@ -47,20 +47,17 @@ _DEFAULT_CONFIG = {
         "default": "false",
         'order': '2'
     },
-    'shutdownWaitTime': {
-        'description': 'Time in seconds, the plugin should wait for pending tasks to complete before shutdown',
-        'type': 'integer',
-        'default': '10'
-    },
     "applyFilter": {
         "description": "Should filter be applied before processing data",
         "type": "boolean",
-        "default": "False"
+        "default": "false",
+        'order': '3'
     },
     "filterRule": {
         "description": "JQ formatted filter to apply (only applicable if applyFilter is True)",
         "type": "string",
-        "default": ".[]"
+        "default": ".[]",
+        'order': '4'
     }
 }
 
@@ -84,12 +81,15 @@ def plugin_init(data):
 
 async def plugin_send(data, payload, stream_id):
     # stream_id (log?)
-    is_data_sent, new_last_object_id, num_sent = await http_north.send_payloads(payload)
-    return is_data_sent, new_last_object_id, num_sent
+    try:
+        is_data_sent, new_last_object_id, num_sent = await http_north.send_payloads(payload)
+    except asyncio.CancelledError:
+        pass
+    else:
+        return is_data_sent, new_last_object_id, num_sent
 
 
 def plugin_shutdown(data):
-    # TODO: use shutdownWaitTime
     pass
 
 

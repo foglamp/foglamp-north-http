@@ -41,6 +41,12 @@ _DEFAULT_CONFIG = {
         'default': 'http://localhost:6683/sensor-reading',
         'order': '1'
     },
+    "source": {
+         "description": "Source of data to be sent on the stream. May be either readings or statistics.",
+         "type": "enumeration",
+         "default": "readings",
+         "options": [ "readings", "statistics" ]
+    },
     "verifySSL": {
         "description": "Verify SSL certificate",
         "type": "boolean",

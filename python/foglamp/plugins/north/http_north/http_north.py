@@ -45,25 +45,26 @@ _DEFAULT_CONFIG = {
          "description": "Source of data to be sent on the stream. May be either readings or statistics.",
          "type": "enumeration",
          "default": "readings",
-         "options": [ "readings", "statistics" ]
+         "options": [ "readings", "statistics" ],
+         'order': '2'
     },
     "verifySSL": {
         "description": "Verify SSL certificate",
         "type": "boolean",
         "default": "false",
-        'order': '2'
+        'order': '3'
     },
     "applyFilter": {
         "description": "Should filter be applied before processing data",
         "type": "boolean",
         "default": "false",
-        'order': '3'
+        'order': '4'
     },
     "filterRule": {
         "description": "JQ formatted filter to apply (only applicable if applyFilter is True)",
         "type": "string",
         "default": ".[]",
-        'order': '4'
+        'order': '5'
     }
 }
 

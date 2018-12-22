@@ -55,7 +55,7 @@ _DEFAULT_CONFIG = {
         "type": "boolean",
         "default": "false",
         'order': '3',
-        'displayName': 'SSL'
+        'displayName': 'Verify SSL'
     },
     "applyFilter": {
         "description": "Should filter be applied before processing data",

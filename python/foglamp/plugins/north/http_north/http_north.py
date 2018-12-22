@@ -39,32 +39,37 @@ _DEFAULT_CONFIG = {
         'description': 'Destination URL',
         'type': 'string',
         'default': 'http://localhost:6683/sensor-reading',
-        'order': '1'
+        'order': '1',
+        'displayName': 'URL'
     },
     "source": {
          "description": "Source of data to be sent on the stream. May be either readings or statistics.",
          "type": "enumeration",
          "default": "readings",
          "options": [ "readings", "statistics" ],
-         'order': '2'
+         'order': '2',
+         'displayName': 'Source'
     },
     "verifySSL": {
         "description": "Verify SSL certificate",
         "type": "boolean",
         "default": "false",
-        'order': '3'
+        'order': '3',
+        'displayName': 'Verify SSL'
     },
     "applyFilter": {
         "description": "Should filter be applied before processing data",
         "type": "boolean",
         "default": "false",
-        'order': '4'
+        'order': '4',
+        'displayName': 'Apply Filter'
     },
     "filterRule": {
         "description": "JQ formatted filter to apply (only applicable if applyFilter is True)",
         "type": "string",
         "default": ".[]",
-        'order': '5'
+        'order': '5',
+        'displayName': 'Filter Rule'
     }
 }
 

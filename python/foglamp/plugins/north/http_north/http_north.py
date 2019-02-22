@@ -32,32 +32,44 @@ _DEFAULT_CONFIG = {
     'plugin': {
          'description': 'HTTP North Plugin',
          'type': 'string',
-         'default': 'http_north'
+         'default': 'http_north',
+         'readonly': 'true'
     },
     'url': {
         'description': 'Destination URL',
         'type': 'string',
-        'default': 'http://localhost:6683/sensor-reading'
+        'default': 'http://localhost:6683/sensor-reading',
+        'order': '1',
+        'displayName': 'URL'
+    },
+    "source": {
+         "description": "Source of data to be sent on the stream. May be either readings or statistics.",
+         "type": "enumeration",
+         "default": "readings",
+         "options": [ "readings", "statistics" ],
+         'order': '2',
+         'displayName': 'Source'
     },
     "verifySSL": {
         "description": "Verify SSL certificate",
         "type": "boolean",
-        "default": "False"
-    },
-    'shutdownWaitTime': {
-        'description': 'Time in seconds, the plugin should wait for pending tasks to complete before shutdown',
-        'type': 'integer',
-        'default': '10'
+        "default": "false",
+        'order': '3',
+        'displayName': 'Verify SSL'
     },
     "applyFilter": {
         "description": "Should filter be applied before processing data",
         "type": "boolean",
-        "default": "False"
+        "default": "false",
+        'order': '4',
+        'displayName': 'Apply Filter'
     },
     "filterRule": {
         "description": "JQ formatted filter to apply (only applicable if applyFilter is True)",
         "type": "string",
-        "default": ".[]"
+        "default": ".[]",
+        'order': '5',
+        'displayName': 'Filter Rule'
     }
 }
 
@@ -65,7 +77,7 @@ _DEFAULT_CONFIG = {
 def plugin_info():
     return {
         'name': 'http',
-        'version': '1.0.0',
+        'version': '1.5.0',
         'type': 'north',
         'interface': '1.0',
         'config': _DEFAULT_CONFIG
@@ -81,12 +93,15 @@ def plugin_init(data):
 
 async def plugin_send(data, payload, stream_id):
     # stream_id (log?)
-    is_data_sent, new_last_object_id, num_sent = await http_north.send_payloads(payload)
-    return is_data_sent, new_last_object_id, num_sent
+    try:
+        is_data_sent, new_last_object_id, num_sent = await http_north.send_payloads(payload)
+    except asyncio.CancelledError:
+        pass
+    else:
+        return is_data_sent, new_last_object_id, num_sent
 
 
 def plugin_shutdown(data):
-    # TODO: use shutdownWaitTime
     pass
 
 

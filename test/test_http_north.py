@@ -1,16 +1,16 @@
 # -*- coding: utf-8 -*-
 
-# FOGLAMP_BEGIN
-# See: http://foglamp.readthedocs.io/
-# FOGLAMP_END
+# FLEDGE_BEGIN
+# See: http://fledge.readthedocs.io/
+# FLEDGE_END
 
 from unittest.mock import patch
 from aiohttp import web
 from aiohttp.test_utils import unused_port
 import pytest
 
-from python.foglamp.plugins.north.http_north import http_north
-from python.foglamp.plugins.north.http_north.http_north import HttpNorthPlugin
+from python.fledge.plugins.north.http_north import http_north
+from python.fledge.plugins.north.http_north.http_north import HttpNorthPlugin
 
 __author__ = "Ashish Jabble"
 __copyright__ = "Copyright (c) 2017 OSIsoft, LLC"

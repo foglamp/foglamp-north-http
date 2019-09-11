@@ -1,5 +1,5 @@
 ==================
-foglamp-north-http
+fledge-north-http
 ==================
 
-FogLAMP North Plugin to send data over HTTP protocol
+Fledge North Plugin to send data over HTTP protocol

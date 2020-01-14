@@ -9,7 +9,6 @@
 import aiohttp
 import asyncio
 import json
-import uuid
 
 from foglamp.common import logger
 from foglamp.plugins.north.common.common import *
@@ -129,7 +128,6 @@ class HttpNorthPlugin(object):
                 read["asset"] = p['asset_code']
                 read["readings"] = p['reading']
                 read["timestamp"] = p['user_ts']
-                read["key"] = str(uuid.uuid4())  # p['read_key']
                 payload_block.append(read)
 
             num_sent = await self._send_payloads(payload_block)
